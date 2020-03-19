@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<loginTicketResponse version="1.0">
+    <header>
+        <source>CN=wsaa, O=AFIP, C=AR, SERIALNUMBER=CUIT 33693450239</source>
+        <destination>SERIALNUMBER=CUIT 20347468631, CN=certificado_factura</destination>
+        <uniqueId>4052721188</uniqueId>
+        <generationTime>2019-12-07T20:32:52.300-03:00</generationTime>
+        <expirationTime>2019-12-08T08:32:52.300-03:00</expirationTime>
+    </header>
+    <credentials>
+        <token>PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pgo8c3NvIHZlcnNpb249IjIuMCI+CiAgICA8aWQgc3JjPSJDTj13c2FhLCBPPUFGSVAsIEM9QVIsIFNFUklBTE5VTUJFUj1DVUlUIDMzNjkzNDUwMjM5IiBkc3Q9IkNOPXdzZmUsIE89QUZJUCwgQz1BUiIgdW5pcXVlX2lkPSIyNTcyMjc1ODg5IiBnZW5fdGltZT0iMTU3NTc2MTUxMiIgZXhwX3RpbWU9IjE1NzU4MDQ3NzIiLz4KICAgIDxvcGVyYXRpb24gdHlwZT0ibG9naW4iIHZhbHVlPSJncmFudGVkIj4KICAgICAgICA8bG9naW4gZW50aXR5PSIzMzY5MzQ1MDIzOSIgc2VydmljZT0id3NmZSIgdWlkPSJTRVJJQUxOVU1CRVI9Q1VJVCAyMDM0NzQ2ODYzMSwgQ049Y2VydGlmaWNhZG9fZmFjdHVyYSIgYXV0aG1ldGhvZD0iY21zIiByZWdtZXRob2Q9IjIyIj4KICAgICAgICAgICAgPHJlbGF0aW9ucz4KICAgICAgICAgICAgICAgIDxyZWxhdGlvbiBrZXk9IjIwMzQ3NDY4NjMxIiByZWx0eXBlPSI0Ii8+CiAgICAgICAgICAgIDwvcmVsYXRpb25zPgogICAgICAgIDwvbG9naW4+CiAgICA8L29wZXJhdGlvbj4KPC9zc28+Cg==</token>
+        <sign>i82FoxMagXvA5swYXTqSP4/PoF+LY+2VPx9LZPsvE0mF78ybHQldyPbZXnN3oj7lunzyKRS23gROEFp1srK4Eb8bJLEfWxetIdTFsB8rPek4QPhFqA/eGOTCdsyMmFAy50NpoT0tdwuLZhB6LcrbNUErPs5DqBTF7jxnxufZGBg=</sign>
+    </credentials>
+</loginTicketResponse>

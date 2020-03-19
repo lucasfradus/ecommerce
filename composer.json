@@ -1,0 +1,8 @@
+{
+    "require": {
+        "todopago/php-sdk": "^1.10",
+        "mikehaertl/phpwkhtmltopdf": "^2.4",
+        "picqer/php-barcode-generator": "^2.0",
+        "tecnickcom/tc-lib-barcode": "^1.15"
+    }
+}

@@ -1,0 +1,218 @@
+.jssor{
+    position: relative; margin: 0 auto; top: 0px; left: 0px; width: 980px; height: 250px;
+}
+
+.jssor .contenedor{
+    cursor: move; position: absolute; left: 0px; top: 0px; width: 980px;height: 250px; overflow: hidden;
+}
+
+.jssor .slide{
+    position: absolute; width: 100%; height: 250px; top: 10px; left: 10px; text-align: left; line-height: 1.8em; font-size: 12px;
+}
+
+.jssor .slide .titulo{
+    text-align: center; display: block; line-height: 1em; text-transform: uppercase; font-size: 30px; color: #fff;
+}
+
+.jssor .slide .subtitulo{
+    text-align: center; display: block; line-height: 1.1em; font-size: 1.5em; color: #FFFFFF;
+}
+
+
+.jssor .slide .descripcion{
+    text-align: center; display: block; line-height: 1.1em; font-size: 1em; color: #FFFFFF;
+}
+
+.jssora07l, .jssora07r, .jssora07ldn, .jssora07rdn {
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../images/a22.png) no-repeat;
+    overflow: hidden;
+}
+
+.jssora07l {
+    background-position: -5px -35px;
+}
+
+.jssora07r {
+    background-position: -65px -35px;
+}
+
+.jssora07l:hover {
+    background-position: -125px -35px;
+}
+
+.jssora07r:hover {
+    background-position: -185px -35px;
+}
+
+.jssora07ldn {
+    background-position: -245px -35px;
+}
+
+.jssora07rdn {
+    background-position: -305px -35px;
+}
+
+.jssort04 .w, .jssort04 .pav:hover .w {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    border: #0099FF 1px solid;
+}
+
+* html .jssort04 .w {
+    width: /**/ 62px;
+    height: /**/ 32px;
+}
+
+.jssort04 .pdn .w, .jssort04 .pav .w {
+    border-style: solid;
+}
+
+.jssort04 .c {
+    width: 62px;
+    height: 32px;
+    filter: alpha(opacity=45);
+    opacity: .45;
+    transition: opacity .6s;
+    -moz-transition: opacity .6s;
+    -webkit-transition: opacity .6s;
+    -o-transition: opacity .6s;
+}
+
+.jssort04 .p:hover .c, .jssort04 .pav .c {
+    filter: alpha(opacity=0);
+    opacity: 0;
+}
+
+.jssort04 .p:hover .c {
+    transition: none;
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: none;
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+    .jssor .slide .titulo{
+        font-size: 4em;
+    }
+
+    .jssor .slide .subtitulo{
+        font-size: 3em;
+    }
+
+    .jssor .slide .descripcion{
+        font-size: 2em;
+    }
+}
+ 
+@media (max-width: 767px) {
+    .jssor .slide .titulo{
+        font-size: 5em;
+    }
+
+    .jssor .slide .subtitulo{
+        font-size: 4em;
+    }
+
+    .jssor .slide .descripcion{
+        font-size: 3em;
+    }
+}
+ 
+@media (max-width: 480px) {
+    .jssor .slide .titulo{
+        font-size: 8em;
+    }
+
+    .jssor .slide .subtitulo{
+        font-size: 7em;
+    }
+
+    .jssor .slide .descripcion{
+        display: none;
+    }
+}
+
+.jssor1{
+    
+}
+
+.jssor1 .jssorb21 div, .jssorb21 div:hover, .jssorb21 .av {
+    background: url(../../images/b21.png) no-repeat;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.jssor1 .jssorb21 div {
+    background-position: -5px -5px;
+}
+
+.jssor1 .jssorb21 div:hover, .jssorb21 .av:hover {
+background-position: -35px -5px;
+}
+
+.jssor1 .jssorb21 .av {
+    background-position: -65px -5px;
+}
+
+.jssor1 .jssorb21 .dn, .jssorb21 .dn:hover {
+    background-position: -95px -5px;
+}
+
+.jssor1 .jssora21l, .jssora21r, .jssora21ldn, .jssora21rdn {
+    position: absolute;
+    cursor: pointer;
+    display: block;
+    background: url(../../images/a02.png) center center no-repeat;
+    overflow: hidden;
+}
+
+.jssor1 .jssora21l {
+    background-position: -3px -33px;
+}
+
+.jssor1 .jssora21r {
+    background-position: -63px -33px;
+}
+
+.jssor1 .jssora21l:hover {
+    background-position: -123px -33px;
+}
+
+.jssor1 .jssora21r:hover {
+    background-position: -183px -33px;
+}
+
+.jssor1 .jssora21ldn {
+    background-position: -243px -33px;
+}
+
+.jssor1 .jssora21rdn {
+    background-position: -303px -33px;
+}
+
+.jssor1 .jssor_container{
+    position: relative; margin: 0 auto; top: 0px; left: 0px; width: 1300px; height: 450px; overflow: hidden;
+}
+
+.jssor1 .jssor_container{
+    position: relative; margin: 0 auto; top: 0px; left: 0px; width: 1300px; height: 450px; overflow: hidden;
+}
+
+/* .jssor1 .jssor_container .jssor_sliders{
+    cursor: move; position: absolute; left: 0px; top: 0px; width: 1300px; height: 450px; overflow: hidden;
+} */
+.jssor1 .jssor_container .jssor_sliders{
+    cursor: move; position: absolute; left: 0px; top: 0px; width: 1300px; height: 450px; overflow: hidden;
+}
+
+.jssor1 .jssor_container .jssor_sliders .jssor_slide .titulo{
+    position: absolute; /*width: 480px;*/ width: 100%; height: 120px; top: 30px; left: 30px; padding: 5px;text-align: center; line-height: 60px; text-transform: uppercase; font-size: 50px;color: #FC349F;
+}
+
+.jssor1 .jssor_container .jssor_sliders .jssor_slide .subtitulo{
+    position: absolute; /*width: 480px;*/ width: 100%; height: 120px; top: 300px; left: 30px; padding: 5px;text-align: center; line-height: 36px; font-size: 30px;color: #FFFFFF;
+}

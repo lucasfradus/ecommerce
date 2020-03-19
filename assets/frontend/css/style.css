@@ -1,0 +1,113 @@
+div.header-menu-navbar {
+    border-bottom: 1px solid #c7c7c7;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.13) !important;
+    -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.13) !important;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.13) !important;
+}
+
+#sombra-panel {
+    -webkit-box-shadow: 0px 1px 19px -1px rgba(0,0,0,0.45) !important;
+    -moz-box-shadow: 0px 1px 19px -1px rgba(0,0,0,0.45) !important;
+    box-shadow: 0px 1px 20px 0px rgba(137, 137, 137, 0.45) !important;
+}
+
+.txt-contendio-slider {
+    padding: 20px 20px !important;
+}
+
+.txt-parrafo-a-1 {
+	font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    margin: 0;
+    line-height: 38px;
+}
+
+.txt-parrafo-a-2 {
+	font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+}
+
+.txt-caption-size {
+    margin-bottom: 18px !important;
+}
+
+.txt-caption-size .fa {
+	font-size: 22px;
+    padding-right: 5px;
+}
+
+.txt-parrafo-b {
+    margin: 0;
+    padding: 0 15px;
+}
+
+ol.carousel-indicators-a {
+	position: initial;
+    text-align: center;
+    width: 100%;
+    margin: 18px 0px 16px;
+}
+
+ol.carousel-indicators-a li {
+	border-radius: initial;
+    background-color: #e9e9e9;
+    width: 28px !important;
+    height: 8px !important;
+    margin: 0 !important;
+}
+
+ol.carousel-indicators-a li.active {
+	background-color: #646464;
+}
+
+.parrafo-ultimo {
+    margin-bottom: 5px;
+}
+
+#linea-ultimo, #linea-radionline, #linea-ultimas, #linea-consigna, #linea-beneficios, #linea-encuesta {
+	min-height: initial !important;
+    height: 18px !important;
+    margin: 8px 0;
+}
+
+#linea-radionline, #linea-ultimas, #linea-consigna, #linea-beneficios, #linea-encuesta {
+	padding: 0 !important;
+}
+
+#seccion-noticias {
+    margin-top: 20px;
+}
+
+.txt-parrafo-esp-ultima-noticia {
+	color: #fff;
+	text-decoration: none;
+}
+
+.txt-parrafo-esp-ultima-noticia:hover, .txt-parrafo-esp-ultima-noticia:focus {
+	text-decoration: none !important;
+}
+
+.txt-parrafo-esp-b-ultima-noticia {
+    line-height: 14px;
+}
+
+.txt-calendar-ultima-noticia .fa {
+	padding-right: 5px;
+    margin-top: 5px;
+}
+
+.txt-calendar-ultima-noticia {
+	margin-bottom: 8px;
+}
+
+.btn-default.btn-ultima-noticia {
+    background-color: rgba(76, 76, 76, 0.5) !important;
+    border-color: rgba(76, 76, 76, 0.5) !important;
+    top: 10px !important;
+    border: 0;
+}
+#txt-aling-slider {
+    bottom: 0;
+}

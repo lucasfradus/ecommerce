@@ -1,0 +1,5 @@
+[17-May-2019 03:47:02 America/Buenos_Aires] PHP Parse error:  syntax error, unexpected ';', expecting ')' in /home2/elfiko/public_html/ec1102/application/controllers/frontend/Ecommerce.php on line 13
+[17-May-2019 11:16:51 America/Buenos_Aires] PHP Fatal error:  Call to undefined method Ecommerce::paqueteTotal() in /home2/elfiko/public_html/ec1102/application/controllers/frontend/Ecommerce.php on line 75
+[17-May-2019 11:18:21 America/Buenos_Aires] PHP Fatal error:  Call to undefined method Ecommerce::paqueteTotal() in /home2/elfiko/public_html/ec1102/application/controllers/frontend/Ecommerce.php on line 75
+[17-May-2019 11:30:08 America/Buenos_Aires] PHP Fatal error:  Cannot redeclare Ajax::costosEnviosPostal() in /home2/elfiko/public_html/ec1102/application/controllers/frontend/Ajax.php on line 361
+[17-May-2019 12:17:56 America/Buenos_Aires] PHP Fatal error:  Call to undefined method Sudaca_ecommerce_md::actualizarStock() in /home2/elfiko/public_html/ec1102/application/controllers/frontend/Ecommerce.php on line 192

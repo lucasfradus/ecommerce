@@ -1,0 +1,40 @@
+<script src="<?php echo base_url() ?>assets/backend/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/moment/moment.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/chart.js/dist/Chart.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/select2/dist/js/select2.full.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/ckeditor/ckeditor.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/bootstrap-validator/dist/validator.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/dropzone/dist/dropzone.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/editable-table/mindmup-editabletable.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/tether/dist/js/tether.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/bootstrap/js/dist/util.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/bootstrap/js/dist/alert.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/bootstrap/js/dist/button.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/bootstrap/js/dist/carousel.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/bootstrap/js/dist/collapse.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/bootstrap/js/dist/dropdown.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/bootstrap/js/dist/modal.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/bootstrap/js/dist/tab.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/bootstrap/js/dist/tooltip.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/bootstrap/js/dist/popover.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/fancybox/jquery.fancybox.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/sweetalert/sweetalert.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/trumbowyg/dist/trumbowyg.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/trumbowyg/dist/langs/es.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/trumbowyg/dist/langs/fr.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/trumbowyg/dist/plugins/base64/trumbowyg.base64.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/trumbowyg/dist/plugins/colors/trumbowyg.colors.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/trumbowyg/dist/plugins/noembed/trumbowyg.noembed.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/trumbowyg/dist/plugins/pasteimage/trumbowyg.pasteimage.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/trumbowyg/dist/plugins/template/trumbowyg.template.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/trumbowyg/dist/plugins/preformatted/trumbowyg.preformatted.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/trumbowyg/dist/plugins/ruby/trumbowyg.ruby.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/trumbowyg/dist/plugins/upload/trumbowyg.upload.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/js/main.js?version=3.9.1"></script>
+<script src="<?php echo base_url() ?>assets/backend/bower_components/jquery-bar-rating/jquery.barrating.js" type="text/javascript"></script>

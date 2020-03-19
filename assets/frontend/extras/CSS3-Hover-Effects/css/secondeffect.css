@@ -1,0 +1,97 @@
+.view {
+  width: 100%;
+  height: 100%;
+  float: left;
+  border: 0;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  box-shadow: 0px 0px 5px #aaa;
+  cursor: default;
+  margin-bottom: 20px;
+}
+.view .mask, .view .content {
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   overflow: hidden;
+   top: 0;
+   left: 0;
+}
+.view img {
+   display: block;
+   position: relative;
+}
+.view .info {
+  text-decoration: none;
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.view .titulo, .view .titulo a, .view .titulo a:hover{
+  background-color: #03692F;
+  text-align: left;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none; 
+}
+
+.view  a:hover{
+  text-decoration: none !important; 
+}
+
+.second-effect .mask {
+   opacity: 0;
+   overflow:visible;
+   border:0px solid rgba(0,0,0,0.7);
+   -moz-box-sizing:border-box;
+   -webkit-box-sizing:border-box;
+   box-sizing:border-box;
+   -webkit-transition: all 0.4s ease-in-out;
+   -moz-transition: all 0.4s ease-in-out;
+   -o-transition: all 0.4s ease-in-out;
+   -ms-transition: all 0.4s ease-in-out;
+   transition: all 0.4s ease-in-out;
+}
+.second-effect .info {
+	position:relative;
+	top:50%;
+	opacity:0;
+   -moz-transform:scale(0,0);
+   -webkit-transform:scale(0,0);
+   -o-transform:scale(0,0);
+   -ms-transform:scale(0,0);
+   transform:scale(0,0);
+   -webkit-transition: -webkit-transform 0.2s 0.1s ease-in, opacity 0.1s ease-in-out;
+   -moz-transition: -moz-transform 0.2s 0.1s ease-in, opacity 0.1s ease-in-out;
+   -o-transition: -o-transform 0.2s 0.1s ease-in, opacity 0.1s ease-in-out;
+   -ms-transition: -ms-transform 0.2s 0.1s ease-in, opacity 0.1s ease-in-out;
+   transition: transform 0.2s 0.1s ease-in, opacity 0.1s ease-in-out;
+}
+.second-effect:hover .mask {
+   opacity: 1;
+   border:100px solid rgba(0,0,0,0);
+   text-decoration:none; 
+}
+.second-effect:hover .info {
+	background-color: #03692F;
+   padding: 10px;
+   border-radius: 50%;
+   border: 2px solid #fff;
+   opacity:1;
+   text-decoration:none; 
+	-moz-transform:scale(1,1);
+	-webkit-transform:scale(1,1);
+	-o-transform:scale(1,1);
+	-ms-transform:scale(1,1);
+	transform:scale(1,1);
+	-moz-transition-delay:0.3s;
+	-webkit-transition-delay:0.3s;
+	-o-transition-delay:0.3s;
+	-ms-transition-delay:0.3s;
+	transition-delay:0.3s;
+}
+				
