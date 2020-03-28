@@ -2,7 +2,7 @@
     <div class="element-box">
         <div class="alert alert-info">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Importar Excel</strong> Debe primero hacer una hoja de cálculo con los productos que desea <b>Importar</b> por este formulario con la extención <b>xls</b><br>
+            <strong>Importar Excel</strong> Debe primero hacer una hoja de cálculo con los productos que desea <b>Importar</b> por este formulario con la extención <b>xlsx</b><br>
             <ul>
                 <li>CÓDIGO</li>
                 <li>NOMBRE (<i class="fa fa-info-circle"></i> Atención :  Si es un nuevo registro se agregará al listado de productos, caso contrario se actualizará)</li>
@@ -23,12 +23,17 @@
                 <li>PESO</li>
                 <li>IMAGEN (<i class="fa fa-info-circle"></i> Atención :  Las imagenes deben ser cargadas por FTP al directorio: <?php echo base_url('uploads/img_productos/') ?>)</li>
                 <li>IVA (1 = 10.5%) ó (2 = 21.00%)</li>
+                <li>DESCUENTO DIFERENCIAL</li>
                 <li>LISTA DE PRECIO 1 (Precio Usuario Mayorista N° 1)</li>
                 <li>LISTA DE PRECIO 2 (Precio Usuario Mayorista N° 2)</li>
                 <li>LISTA DE PRECIO 3 (Precio Usuario Mayorista N° 3)</li>
                 <li>LISTA DE PRECIO 4 (Precio Usuario Mayorista N° 4)</li>
                 <li>LISTA DE PRECIO 5 (Precio Usuario Mayorista N° 5)</li>
+                
             </ul>
+            <span>Puede Utilizar Utilizar el siguiente template:</span>
+            <p><a href="<?php echo base_url('ecommerce/productos/export_template') ?>" class="btn btn-info"><i class="fa fa-download"></i> Descargar</a></p>
+
         </div>
         <form method="post" action="<?php echo current_url() ?>" enctype="multipart/form-data">
             <div class="row">

@@ -10,9 +10,13 @@
                 <div class="my-breadcrumb">
                     <a href="<?php echo(base_url()); ?>">Home</a> - 
                     <?php if(isset($offer)){ ?>
-                        <a href="<?php echo(base_url('ofertas')); ?>">Ofertas</a>
+                        <a href="<?php echo(base_url('ofertas')); 
+                        $var = 'ofertas';
+                        ?>">Ofertas</a>
                     <?php }else{ ?>
-                        <a href="<?php echo(base_url('productos')); ?>">Productos</a>
+                        <a href="<?php echo(base_url('productos'));
+                        $var = 'productos';
+                        ?>">Productos</a>
                     <?php } ?>
                     <?php if($category!=''): ?> - <a href="<?php echo(base_url('productos').'/'.$category->id_category.'/1'); ?>"><?php echo($category->category); ?></a><?php endif ?>
                     <?php if($category!=''){ if($category->id_subcategory>0) { ?> - <a href="<?php echo(base_url('productos').'/'.$category->id_subcategory.'/2'); ?>"><?php echo($category->subcategory); ?></a><?php } } ?>
@@ -23,9 +27,9 @@
             <div class="col-md-2 offset-md-0 col-2 text-left">
                 <div class="my-breadcrumb">
                     <label for="ordenar">Ordenar</label>
-                        <select class="form-control">
-                                <option value="">Menor Precio</option>
-                                <option value="">Mayor Precio</option>
+                        <select class="form-control" onchange="location = this.value;">
+                            <option <?php echo ($sort == 'asc') ? 'selected' : ''; ?> value="<?php echo site_url($var.'?sort=asc');?>">Menor Precio</option>
+                            <option <?php echo ($sort == 'desc') ? 'selected' : ''; ?> value="<?php echo site_url($var.'?sort=desc');?>">Mayor Precio</option>
                         <select>
                 </div>
             </div>
@@ -33,10 +37,8 @@
       
         <div id="products_list" class="row">
             <?php if($load_Products){ ?>
-            <div class="col-lg-3 col-md-12 col-12">
-                <?php $this->load->view('frontend/public/category_list'); ?>
-            </div>
-            <div class="col-lg-9 col-md-12 col-12">
+           
+            <div class="col-lg-12 col-md-12 col-12">
                 <br class="d-xs-inline d-md-none">
                 <div class="row">
                     <?php $this->load->view('frontend/public/products_list') ?>

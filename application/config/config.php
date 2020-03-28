@@ -21,8 +21,8 @@ ini_set("upload_max_filesize", 40);
 | environments.
 |
 */
-//$config['base_url'] = 'https://hefercom.set.urltemporal.com/nuevo/';
-$config['base_url'] = 'http://localhost:8888/ecommerce/';
+$config['base_url'] = 'https://hefercom.set.urltemporal.com/nuevo/';
+//$config['base_url'] = 'http://localhost:8888/ecommerce/';
 
 /*
 |--------------------------------------------------------------------------

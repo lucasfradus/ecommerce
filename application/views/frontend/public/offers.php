@@ -16,7 +16,7 @@
                 <br class="d-xs-block d-md-block d-lg-none d-sm-block">
                 <h5 class="d-xs-block d-md-block d-lg-none mb-0 text-right text-destacado">OFERTAS DEL MES</h5>
             </div>
-            <div class="col-lg-9 col-md-12 col-12 offset-0 offset-md-0">
+            <div class="col-lg-12 col-md-12 col-12">
                 <br class="d-xs-inline d-md-none">
                 <div class="row">
                     <?php $this->load->view('frontend/public/products_list') ?>
@@ -27,8 +27,9 @@
                                     <h5>No se encontraron productos.</h5>
                                 </div>
                             </div>
-                        </div>
+                            </div>
                     <?php endif ?>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">

@@ -1,40 +1,50 @@
-<div class="background-img-products position-relative">
+<div class="background-img-products position-relative ">
     <h1 class="d-none d-md-block"><?php if($result->category==''){ ?>PRODUCTOS<?php }else{ echo($result->category); } ?></h1>
     <h4 class="d-block d-md-none"><?php if($result->category==''){ ?>PRODUCTOS<?php }else{ echo($result->category); } ?></h4>
 </div>
 <section class="product">
     <div class="img-bot d-none d-sm-none d-lg-block d-md-none"></div>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-12 col-12 text-right">
-                <div class="my-breadcrumb">
-                    <a href="<?php echo(base_url()); ?>">Home</a> - 
-                    <a href="<?php echo(base_url('productos')); ?>">Productos</a>
-                    <?php if($result->category!=''): ?> - <a href="<?php echo(base_url('productos').'/'.$result->category_id.'/1'); ?>"><?php echo($result->category); ?></a><?php endif ?>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-12 col-12 text-right">
+                    <div class="my-breadcrumb">
+                        <a href="<?php echo(base_url()); ?>">Home</a> - 
+                        <a href="<?php echo(base_url('productos')); ?>">Productos</a>
+                        <?php if($result->category!=''): ?> - <a href="<?php echo(base_url('productos').'/'.$result->category_id.'/1'); ?>"><?php echo($result->category); ?></a><?php endif ?>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row " id="product_file">
-            <div class="col-lg-12 col-md-12 col-12">
-                <br class="d-xs-inline d-md-none">
+            <div class="row " id="product_file">
+                <div class="col-lg-3 col-md-12 col-12">
+                    <?php $this->load->view('frontend/public/category_list'); ?>
+                    <br class="d-xs-block d-md-block d-lg-none d-sm-block">
+                    <h5 class="d-xs-block d-md-block d-lg-none mb-0 text-center text-destacado">PRODUCTOS&nbsp;&nbsp;<span class="text-destacado-span">DESTACADOS</span></h5>
+                </div>
+                <div class="col-lg-9 col-md-12 col-12">
+                    <br class="d-xs-inline d-md-none">
                     <div class="row">
-                        <div class="col-md-12">
-                            <?php if($this->session->flashdata('consult')): ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>Éxito</strong> <?php echo($this->session->flashdata('consult')); ?>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <?php endif ?>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="row">
-                            <div class="col-md-12 col-lg-6 text-center">
-                                <a id="main-fancy" href="<?php if(!empty($result->image1)){echo(base_url('uploads/img_productos').'/'.$result->image1);}?>" class="fancybox" rel="galeria">
-                                    <img class="img-fluid img-product" src="<?php if(!empty($result->image1)){echo(base_url('uploads/img_productos').'/'.$result->image1);} ?>" alt="<?php echo($result->name); ?>">
-                                </a>
+                            <div class="col-md-12">
+                                <?php if($this->session->flashdata('consult')): ?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Éxito</strong> <?php echo($this->session->flashdata('consult')); ?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <?php endif ?>
+                            </div>                    
+                    </div>  
+                    <div class="row card shadow-sm rounded"> 
+                            <div class="col-md-10 col-lg-10 text-left">
+                                <br>
+                                <span class="text-code-product-desc">Cod:</span><span class="text-code-product"><?php echo($result->code); ?></span>        
+                                <p class="text-Name mb-3"><?php echo($result->name); ?></p>                                 
+                            </div> 
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="fill col-md-12 col-lg-12">
+                                  <img src="<?php if(!empty($result->image1)){echo(base_url('uploads/img_productos').'/'.$result->image1);} ?>" alt="<?php echo($result->name); ?>" />
+                                </div>
                                 <div class="col-md-12">
                                 <?php if($result->galeri!=''):?>
                                 <div class="carousel-thumbs mt-3">
@@ -49,46 +59,55 @@
                                         <?php endforeach?>
                                     </div>
                                 </div>
-                                <?php endif ?>                
-                            </div></div>
-                            <div class="col-md-12 col-lg-6">
-                                <br class="d-lg-block">
-                                <div class="col-md-12">
-                                    <div class="text-Code">Cod.: <?php echo($result->code); ?></div>
-                                </div>
-                                <div class="col-md-12 ">
-                                    <div class="text-Name mb-3"><?php echo($result->name); ?></div>  
-                                </div>
-                                <div class="col-md-12 mb-5">
-                                    <div class="Code"><?php echo($result->description); ?></div>
-                                </div>
-                                <?php if($this->session->userdata('customer_id')){ ?>
-                                    <div class="col-md-12 mb-1">
-                                        <div class="text-Price-Unidad">Precio. x Pack/Bulto</div>
+                                <?php endif ?>  
+                            </div>
+                            <div class="row">
+                                 <div class="col-md-12 col-lg-12">
+                                    <br class="d-lg-block">
+                                    <div class="text-description-title">Descripcion</div>
+                                        <div class="text-description"><?php echo($result->description); ?></div>
+                                    </div>   
+                                </div>   
+                            </div>
+                            <div class="row">
+                            <?php if($this->session->userdata('customer_id')): ?>
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="text-Price-Unidad">Precio. x Pack/Bulto</div>
                                         <div class="text-Price"><input type="radio" name="optionShopping" required="" value="2" checked>&nbsp;
                                             <?php if($user->id_list_price): ?>
                                                 <?php echo('$ '.$result->prices[$user->id_list_price]); ?>
                                             <?php else: ?>   
                                                 <?php echo('$ '.$result->price_package);  ?>
                                             <?php endif ?>
-                                        </div> 
+                                        </div>
+                                    </div> 
+                                    <span class="text-Unidad" data-i="<?php echo($result->unit_bulto>0 ? $result->unit_bulto : 0 ); ?>">Contiene <?php echo($result->unit_bulto>0 ? $result->unit_bulto : 0 ); ?> Unidades por bulto/pack</span>    
+                                </div>
+                            <?php else:?>
+                                <div class="col-md-6 col-lg-6">
+                                        <span class="text-Price-Unidad">Precio. x Unidad</span>
+                                        <br>
+                                        <span class="text-price-offer-prd-sheet">
+                                            <input class="padding" type="radio" name="optionShopping" required="" value="1"  checked> $&nbsp;<?php echo(number_format(($result->offer==1 ? $result->offer_price : $result->price_individual),2,'.',',')); ?>
+                                                <span class="text-price-prd-sheet"><?php if($result->offer==1){echo('$ '. number_format(($result->price_individual),2,'.',','));} ?></span>
+                                        </span>
                                     </div>
-                                <?php }else{ ?>
-                                <div>
-                                <div class="col-md-12 mb-1">
-                                    <div class="text-Price-Unidad">Precio. x Unidad</div>
-                                    <div class="text-Price"><input type="radio" name="optionShopping" required="" value="1"  checked> $&nbsp;<?php echo(number_format(($result->offer==1 ? $result->offer_price : $result->price_individual),2,'.',',')); ?><span class="text-PriceOffer ml-2"><?php if($result->offer==1){echo('$ '. number_format(($result->price_individual),2,'.',','));} ?></span></div>
-                                </div>
-                                <div class="col-md-12 mb-1">
-                                    <div class="text-Price-Unidad">Precio. x Pack/Bulto</div>
-                                    <div class="text-Price"><input type="radio" name="optionShopping" required="" value="2"> $&nbsp;<?php echo(number_format(($result->offer==1 ? $result->offer_price_bulto : $result->price_package),2,'.',',')); ?><span class="text-PriceOffer ml-2"><?php if($result->offer==1){echo('$ '. number_format(($result->price_package),2,'.',','));} ?></span></div>
-                                </div>
-                                </div>
-                                <?php } ?>
-                                <div class="col-md-12 mb-3">
-                                    <div class="text-Unidad" data-i="<?php echo($result->unit_bulto>0 ? $result->unit_bulto : 0 ); ?>">Contiene <?php echo($result->unit_bulto>0 ? $result->unit_bulto : 0 ); ?> Unidades por bulto/pack</div>
-                                </div>
-                                <input id="unitPack" name="unitPack" type="hidden" value="<?php echo($result->unit_bulto>0 ? $result->unit_bulto : 0 ); ?>">
+                                    <div class="col-md-6 col-lg-6">
+                                        <span class="text-Price-Unidad">Precio. x Pack/Bulto</span>
+                                        <br>
+                                        <span class="text-price-offer-prd-sheet">
+                                            <input type="radio" name="optionShopping" required="" value="2"> $&nbsp;<?php echo(number_format(($result->offer==1 ? $result->offer_price_bulto : $result->price_package),2,'.',',')); ?>
+                                                 <span class="text-price-prd-sheet"><?php if($result->offer==1){echo('$ '. number_format(($result->price_package),2,'.',','));} ?></span>
+                                        </span>
+                                        <br>
+                                        <span class="text-Unidad" data-i="<?php echo($result->unit_bulto>0 ? $result->unit_bulto : 0 ); ?>">Contiene <?php echo($result->unit_bulto>0 ? $result->unit_bulto : 0 ); ?> Unidades por bulto/pack</span>
+
+                                    </div>     
+                            <?php endif?>
+                          
+                        </div>
+                        <div class="row">
+                        <input id="unitPack" name="unitPack" type="hidden" value="<?php echo($result->unit_bulto>0 ? $result->unit_bulto : 0 ); ?>">
                                 <div class="col-md-12">
                                     <?php if($result->stock != 0){
                                     echo '<div class="text-Stock mb-4">Stock: Disponible</div>';
@@ -98,7 +117,7 @@
                                     ?>
                                 </div>
                                 <hr>
-                                <div class="col-md-12 mb-5">
+                                <div class="col-md-12 col-lg-12 mb-5">
                                     <div class="row">
                                         <div class="col-md-2 d-none d-sm-none d-md-none d-lg-block">
                                             <input class="text-center text-Qty form-control" type="number" name="qty" id="qty" min="1" value="1" required="">
@@ -109,7 +128,12 @@
                                                 <span class="d-block d-sm-block d-lg-none d-md-none mb-2"></span>
                                         </div>   
                                         <div class="col-md-7">
-                                            <a data-id="<?php echo($result->id_product); ?>" data-pack="<?php echo($result->unit_bulto); ?>" data-action="add-product" role="button" class="btn btn-primary btn-buy btn-lg btn-block">AÑADIR AL CARRITO</a>
+                                            <?php if($result->stock > 0):?>
+                                            <a data-id="<?php echo($result->id_product); ?>" data-pack="<?php echo($result->unit_bulto); ?>" data-action="add-product" role="button" class="btn btn-primary btn-buy btn-lg btn-block"><i class="lnr lnr-cart"></i>  AÑADIR AL CARRITO</a>
+                                            <?php else : ?>   
+                                                
+                                            <a  role="button" class="btn btn-stock btn-lg btn-block">SIN STOCK</a>
+                                            <?php endif ?> 
                                         </div>
                                         <div class="col-md-3 mb-4">
                                             <a role="button" class="d-lg-block d-none d-md-none d-sm-none btn btn-primary btn-Consult btn-lg" data-toggle="modal" data-target="#consultModal"><i class="far fa-envelope text-white"></i></a>
@@ -119,14 +143,12 @@
                                     <div class="col-md-12">
                                         <div id="messageValidationStock"></div>
                                     </div>
-                                </div>    
-                            </div>
+                                </div>       
                         </div>
-                    </div>
+                    </div>      
                 </div>
             </div>
-        </div>
-    </div>
+        </div>    
 </section>
 <section class="products-related">
     <div class="container">
@@ -154,6 +176,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">

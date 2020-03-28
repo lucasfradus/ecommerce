@@ -16,8 +16,6 @@ class Web extends CI_Controller
     public function index()
     {
         
-        $categories = $this->category->get();
-        $subcategories = $this->subcategory->get();
         $product_list = [];
         $products= $this->product->getFeaturedCategory();
         $user = $this->codegen_model->row('ecommerce_users', 'id_users,id_list_price', 'id_users = "'.$this->session->userdata('customer_id').'" AND ACTIVE = "'.ACTIVE.'"');
@@ -37,8 +35,6 @@ class Web extends CI_Controller
         $vista_interna = array(
             'sliders' => $this->slider->get(),
             'load_Products' => $products,
-            'categories' => $categories,
-            'subcategories' => $subcategories,
             'configurations' => $this->codegen_model->get('configurations', '*', 'id_configuration > 0'),
             'category' => '',
             'marcas' => $this->slider_marcas->get(),
@@ -62,6 +58,7 @@ class Web extends CI_Controller
 
     public function products($id_category = 0, $type = 0, $page = 0)
     {
+
         $perpage = 9;
         $parameters = array(
             'category'  =>  $id_category,
@@ -69,7 +66,10 @@ class Web extends CI_Controller
             'page'      =>  $page,
             'perpage'   =>  $perpage,
             'search'    =>  $this->input->get('search'),
+            'sort'      =>  ($this->input->get('sort')) ? $this->input->get('sort') : null
         );
+    
+     
 
         $product_list = [];
         $products = $this->product->getProductsFiltered($parameters);
@@ -139,6 +139,7 @@ class Web extends CI_Controller
             'links' => $links,
             'category' => $category,
             'user' => $user,
+            'sort' => ($this->input->get('sort')) ? $this->input->get('sort') : null,
 
         );
 
@@ -296,6 +297,7 @@ class Web extends CI_Controller
             'page'      =>  $page,
             'perpage'   =>  $perpage,
             'offer'     =>  1,
+            'sort'      =>  ($this->input->get('sort')) ? $this->input->get('sort') : null
         );
         $product_list=[];
         $products = $this->product->getProductsFiltered($parameters);
@@ -362,6 +364,7 @@ class Web extends CI_Controller
             'category' => $category,
             'offer' => 1,
             'user' => $user,
+            'sort' => ($this->input->get('sort')) ? $this->input->get('sort') : null,
 
         );
         $vista_config  = array(

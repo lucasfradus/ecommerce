@@ -8,7 +8,7 @@
 	    	$this->view('template/backend/js');
 	    ?>
 	</head>
-	<body style="background: #E2E2E2;">
+	<body style="background: #fff;">
 	    <?php echo $contenido_main; ?>		    
 	</body>
 </html>

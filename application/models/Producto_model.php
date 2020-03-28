@@ -88,6 +88,7 @@ class Producto_model extends CI_Model
 
     public function getProductsFiltered($parameters)
     {
+
         $this->db->select('product.*, group_concat( `list_product_price`.`price`) as `prices`, group_concat(`list_product_price`.`id_list_price`) as lista_id', false);
         $this->db->where('product.active', ACTIVE);
         $this->db->join('products_categories categories', 'categories.id_product = product.id_product AND categories.active = "'.ACTIVE.'"');
@@ -104,6 +105,9 @@ class Producto_model extends CI_Model
         if (array_key_exists('offer', $parameters)) {
             $this->db->where('product.offer', $parameters['offer']);
         }
+
+     
+
         if (array_key_exists('search', $parameters)) {
             $this->db->group_start();
             $this->db->like('product.name', $parameters['search']);
@@ -111,8 +115,13 @@ class Producto_model extends CI_Model
             $this->db->group_end();
         }
         $this->db->group_by('product.id_product');
-        $this->db->order_by('product.name', 'asc');
 
+        if ($parameters['sort']) {
+            $this->db->order_by('product.price_individual', $parameters['sort']); 
+        }else{
+            $this->db->order_by('product.name', 'asc');
+        }
+        
         if (empty($parameters['count'])) {
             $this->db->limit($parameters['perpage'], $parameters['page']);
         }

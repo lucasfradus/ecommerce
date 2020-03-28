@@ -16,3 +16,4 @@
 <link href="<?php echo base_url() ?>assets/frontend/extras/fontawesome-5/css/all.css" rel="stylesheet">
 <link href="<?php echo base_url().'assets/frontend/plugins/icheck/skins/square/blue.css' ?>" rel="stylesheet">
 <script src="<?php echo base_url() ?>assets/frontend/js/jquery.min.js"></script>
+<link href="<?php echo base_url() ?>assets/frontend/css/icon-font.min.css" rel="stylesheet">

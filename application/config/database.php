@@ -67,12 +67,12 @@ $query_builder = TRUE;
 $db['developed'] = array(
 	'dsn'	   => '',
 	'hostname' => 'localhost',
-	'username' => 'root',
+	/*'username' => 'root',
 	'password' => 'root',
-	'database' => 'elfiko_ec1119',/*
+	'database' => 'elfiko_ec1119',*/
 	'username' => 'hefercom_hefercom',
 	'password' => 'N$pc?#*Pbl=C',
-	'database' => 'hefercom_hefercom',*/
+	'database' => 'hefercom_hefercom',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

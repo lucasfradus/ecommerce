@@ -19,9 +19,6 @@ class Ecommerce extends CI_Controller
 
     public function cart()
     {
-
-        //var_dump($this->cart->contents());
-        echo "TOTAL DE DESC DIFF : ".$this->GetDiffDiscount();
         $vista_interna = array(
             'payment_methods' => $this->codegen_model->get('payment_methods', '*', 'active = "1"'),
             'shipping_methods' => $this->shipping->get(),

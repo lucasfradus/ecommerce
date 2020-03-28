@@ -14,7 +14,6 @@
                     <th><a href="#">Fecha</a></th>
                     <th><a href="#">Estado</a></th>
                     <th><a href="#">Tipo de venta</a></th>
-                    <th><a href="#">Facturar</a></th>
                     <th width="15%">&nbsp;</th>
                 </tr>
             </thead>
@@ -34,17 +33,7 @@
                                 Ecommerce
                             <?php endif ?>
                         </td>
-                        <td align="center">
-                            <?php if ($result->id_status == PEDIDO_PAGADO && !is_numeric($result->id_invoice)): ?>
-                                <button class="btn btn-primary" onclick="handleRegisterInvoice(event, this, '<?php echo $result->type_id ?>')" data-id="<?php echo $result->id_order ?>">
-                                    <i class="fa fa-check"></i>
-                                </button>
-                            <?php else: ?>
-                                <?php if (is_numeric($result->id_invoice)): ?>
-                                    Facturado
-                                <?php endif ?>
-                            <?php endif ?>
-                        </td>
+       
                         <td align="right">
                             <div class="btn-group">
                                 <a data-toggle="modal" href="<?php echo base_url().'ecommerce/pedidos/view/'.$result->id_order ?>" data-target="#myModalLarge" class="btn btn-info"><i class="fa fa-search"></i></a>

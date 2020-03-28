@@ -1,5 +1,8 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Productos extends CI_Controller
 {
     private $permisos;
@@ -376,90 +379,76 @@ class Productos extends CI_Controller
     function import()
     {
         if ($this->input->post('enviar_form')) {
-            $this->producto->truncate();
+           $this->producto->truncate();
             $this->producto->truncatelistprices();
             $path = $_FILES['file']['tmp_name'];
-            $this->load->library('excel');
-            $objPHPExcel = PHPExcel_IOFactory::load($path);
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
 
-            foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) {
-                $worksheetTitle = $worksheet->getTitle();
-                $highestRow = $worksheet->getHighestRow();
-                $highestColumn = $worksheet->getHighestColumn();
-                $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
-                $nrColumns = ord($highestColumn) - 64;
+            $spreadsheet = $reader->load($path);
+            $spreadsheet->getActiveSheet()->removeRow(1);
+            $sheetData = $spreadsheet->getActiveSheet()->toArray();
+            //print_r($sheetData);
+            
+            foreach ($sheetData as $item) {
+                try {
+                    $product_data = array(
+                        'code' => $item[0],
+                        'name' => $item[1],
+                        'description' => $item[2],
+                        'unit_bulto' => $item[5],
+                        'stock' =>  $item[6],
+                        'price_individual' => $item[7],
+                        'price_package' => $item[8],
+                        'featured' => $item[9] ? $item[9] : '0',
+                        'offer' =>  $item[10] ? $item[10] : '0',
+                        'offer_price' => $item[11] ? $item[11] :'0',
+                        'offer_price_bulto' => $item[12] ? $item[12] :'0',
+                        'height' => $item[13],
+                        'width' => $item[14],
+                        'depth' => $item[15],
+                        'weight' => $item[16],
+                        'image1' => !empty($item[17]) ? $item[17] : '',
+                        'id_iva' => $item[18],
+                        'id_differential_discount' =>  $item[19],
+                        'active' =>  1,  
+                    );
 
-                for ($row = 2; $row <= $highestRow; ++$row) {
-                    for ($col = 0; $col < $highestColumnIndex; ++$col) {
-                        $cell  = $worksheet->getCellByColumnAndRow($col, 1);
-                        $value = $worksheet->getCellByColumnAndRow($col, $row);
-                        $field = $cell->getValue();
-                        $val   = $value->getValue();
-                        $arr[$row][$field] = $val;
+                    $productId = $this->codegen_model->addNoAudit('products', $product_data);
+
+                    if (!empty($item[4]) && is_numeric($item[4])) {
+                        $subcategoryProduct = [
+                            'id_product' => $productId,
+                            'id_subcategory' => $item[4],
+                            'active' => ACTIVE,
+                        ];
+                        $this->codegen_model->addNoAudit('products_subcategories', $subcategoryProduct);
                     }
-                }
-
-                foreach ($arr as $item) {
-                    try {
-                        $product_data = array(
-                            'code' => $item['codigo'],
-                            'description' => $item['decripcion'],
-                            'name' => $item['nombre'],
-                            'width' => $item['ancho'],
-                            'height' => $item['alto'],
-                            'depth' => $item['profundidad'],
-                            'weight' => $item['peso'],
-                            'id_iva' => $item['iva'],
-                            'price_individual' => $item['precio_minorista_individual'],
-                            'price_package' => $item['precio_minorista_por_bulto'],
-                            'offer_price' => $item['oferta_precio_individual'] ? $item['oferta_precio_individual'] :'0',
-                            'offer_price_bulto' => $item['oferta_precio_bulto'] ? $item['oferta_precio_bulto'] :'0',
-                            'stock' =>  $item['stock'],
-                            'unit_bulto' => $item['unidades_por_bulto'],
-                            'featured' => $item['destacado'] ? $item['destacado'] : '0',
-                            'offer' =>  $item['oferta'] ? $item['oferta'] : '0',
-                            'image1' => !empty($item['imagen']) ? $item['imagen'] : '',
-                        );
-
-                        $productId = $this->codegen_model->addNoAudit('products', $product_data);
-
-                        if (!empty($item['subcategoria']) && is_numeric($item['subcategoria'])) {
-                            $subcategoryProduct = [
-                                'id_product' => $productId,
-                                'id_subcategory' => $item['subcategoria'],
-                                'active' => ACTIVE,
-                            ];
-                            $this->codegen_model->addNoAudit('products_subcategories', $subcategoryProduct);
-                        }
-                        if (!empty($item['categoria']) && is_numeric($item['categoria'])) {
-                            $categoryProduct = [
-                                'id_product' => $productId,
-                                'id_category' => $item['categoria'],
-                                'active' => ACTIVE,
-                            ];
-                            $this->codegen_model->addNoAudit('products_categories', $categoryProduct);
-                        }
-
-                        for ($i=1; $i <= 5; $i++) {
-                            $listPriceProduct = [
-                                'id_product' => $productId,
-                                'price' => $item['lista_'.$i] ? $item['lista_'.$i] : 0,
-                                'id_list_price' => $i,
-                                'active' => ACTIVE,
-                            ];
-                            $this->codegen_model->addNoAudit('price_products', $listPriceProduct);
-                        }
-                    } catch (Exception $e) {
-                        $e->getMessage();
+                    if (!empty($item[3]) && is_numeric($item[3])) {
+                        $categoryProduct = [
+                            'id_product' => $productId,
+                            'id_category' => $item[3],
+                            'active' => ACTIVE,
+                        ];
+                        $this->codegen_model->addNoAudit('products_categories', $categoryProduct);
                     }
+                    for ($i=20; $i < 25; $i++) {
+                        $listPriceProduct = [
+                            'id_product' => $productId,
+                            'price' => $item[$i] ? $item[$i] : 0,
+                            'id_list_price' => $i-19,
+                            'active' => ACTIVE,
+                        ];
+                        $this->codegen_model->addNoAudit('price_products', $listPriceProduct);
+                    }
+                } catch (Exception $e) {
+                    $e->getMessage();
                 }
             }
-
-            // $this->generateXmlProducts();
 
             $this->session->set_flashdata('success', 'Se han importado los productos satisfactoriamente.');
 
             redirect(base_url('ecommerce/productos'), 'refresh');
+            
         }
 
         $vista_interna = array(
@@ -472,6 +461,7 @@ class Productos extends CI_Controller
         );
 
         $this->load->view('template/backend', $vista_externa);
+        
     }
     function importCodeDetected()
     {
@@ -609,178 +599,185 @@ class Productos extends CI_Controller
         $this->load->view('template/backend', $vista_externa);
 
     }
+    public function export_template(){ 
+        // Create new Spreadsheet object
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+     
+        // add style to the header
+            $styleArray = array(
+            'font' => array(
+                'bold' => true,
+            ),
+            'alignment' => array(
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            ),
+            'borders' => array(
+                'bottom' => array(
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+                    'color' => array('rgb' => '333333'),
+                ),
+            ),
+            'fill' => array(
+                'type'       => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+                'rotation'   => 90,
+                'startcolor' => array('rgb' => '0d0d0d'),
+                'endColor'   => array('rgb' => 'f2f2f2'),
+            ),
+            );
 
+    $spreadsheet->getActiveSheet()->getStyle('A1:Y1')->applyFromArray($styleArray);
+    // auto fit column to content
+    foreach(range('A', 'Y') as $columnID) {
+      $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+    }
+    $sheet->setCellValue('A1', 'Código');
+    $sheet->setCellValue('B1', 'Nombre');
+    $sheet->setCellValue('C1', 'Descripción');
+    $sheet->setCellValue('D1', 'ID Categoria');
+    $sheet->setCellValue('E1', 'ID SubCategoria');
+    $sheet->setCellValue('F1', 'Unidades en Bulto');
+    $sheet->setCellValue('G1', 'Stock');
+    $sheet->setCellValue('H1', 'Precio Individual');
+    $sheet->setCellValue('I1', 'Precio por Bulto');
+    $sheet->setCellValue('J1', '¿Es Destacado?');
+    $sheet->setCellValue('K1', '¿Es Oferta?');
+    $sheet->setCellValue('L1', 'Precio Individual Oferta');
+    $sheet->setCellValue('M1', 'Precio Por Bulto Oferta');
+    $sheet->setCellValue('N1', 'Alto');
+    $sheet->setCellValue('O1', 'Ancho');
+    $sheet->setCellValue('P1', 'Profundo');
+    $sheet->setCellValue('Q1', 'Peso');
+    $sheet->setCellValue('R1', 'Imagen');
+    $sheet->setCellValue('S1', 'IVA');
+    $sheet->setCellValue('T1', 'ID Descuento Diferencial');
+    $sheet->setCellValue('U1', 'Precio de Lista 1');
+    $sheet->setCellValue('V1', 'Precio de Lista 2');
+    $sheet->setCellValue('W1', 'Precio de Lista 3');
+    $sheet->setCellValue('X1', 'Precio de Lista 4');
+    $sheet->setCellValue('Y1', 'Precio de Lista 5');
+
+     
+      $writer = new Xlsx($spreadsheet);
+
+      header('Content-Type: application/vnd.ms-excel');
+      header('Content-Disposition: attachment;filename="Template_Carga_Masiva_Productos.xlsx"'); 
+      header('Cache-Control: max-age=0');
+      
+      $writer->save('php://output'); // download file 
+
+}
     public function export()
     {
-        $this->load->library('excel');
+         // Create new Spreadsheet object
+         $spreadsheet = new Spreadsheet();
+         $sheet = $spreadsheet->getActiveSheet();
+      
+         // add style to the header
+             $styleArray = array(
+             'font' => array(
+                 'bold' => true,
+             ),
+             'alignment' => array(
+                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                 'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+             ),
+             'borders' => array(
+                 'bottom' => array(
+                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+                     'color' => array('rgb' => '333333'),
+                 ),
+             ),
+             'fill' => array(
+                 'type'       => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+                 'rotation'   => 90,
+                 'startcolor' => array('rgb' => '0d0d0d'),
+                 'endColor'   => array('rgb' => 'f2f2f2'),
+             ),
+             );
+ 
+     $spreadsheet->getActiveSheet()->getStyle('A1:Y1')->applyFromArray($styleArray);
+     // auto fit column to content
+     foreach(range('A', 'Y') as $columnID) {
+       $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+     }
+    $sheet->setCellValue('A1', 'Código');
+    $sheet->setCellValue('B1', 'Nombre');
+    $sheet->setCellValue('C1', 'Descripción');
+    $sheet->setCellValue('D1', 'ID Categoria');
+    $sheet->setCellValue('E1', 'ID SubCategoria');
+    $sheet->setCellValue('F1', 'Unidades en Bulto');
+    $sheet->setCellValue('G1', 'Stock');
+    $sheet->setCellValue('H1', 'Precio Individual');
+    $sheet->setCellValue('I1', 'Precio por Bulto');
+    $sheet->setCellValue('J1', '¿Es Destacado?');
+    $sheet->setCellValue('K1', '¿Es Oferta?');
+    $sheet->setCellValue('L1', 'Precio Individual Oferta');
+    $sheet->setCellValue('M1', 'Precio Por Bulto Oferta');
+    $sheet->setCellValue('N1', 'Alto');
+    $sheet->setCellValue('O1', 'Ancho');
+    $sheet->setCellValue('P1', 'Profundo');
+    $sheet->setCellValue('Q1', 'Peso');
+    $sheet->setCellValue('R1', 'Imagen');
+    $sheet->setCellValue('S1', 'IVA');
+    $sheet->setCellValue('T1', 'ID Descuento Diferencial');
+    $sheet->setCellValue('U1', 'Precio de Lista 1');
+    $sheet->setCellValue('V1', 'Precio de Lista 2');
+    $sheet->setCellValue('W1', 'Precio de Lista 3');
+    $sheet->setCellValue('X1', 'Precio de Lista 4');
+    $sheet->setCellValue('Y1', 'Precio de Lista 5');
 
-        $objPHPExcel = new PHPExcel();
-        $objPHPExcel->setActiveSheetIndex(0);
+   
+  
+  $products = $this->producto->getExport();
+  
 
-        $rowCount = 1;
+  $x = 2;
+      foreach ($products as $key => $product)
+      {            
+          $prices[] = explode(',', $product->prices);
 
-        $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, 'codigo');
-        $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, 'nombre');
-        $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, 'decripcion');
-        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, 'categoria');
-        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, 'subcategoria');
-        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, 'unidades_por_bulto');
-        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, 'stock');
-        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount, 'precio_minorista_individual');
-        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount, 'precio_minorista_por_bulto');
-        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount, 'destacado');
-        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount, 'oferta');
-        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, 'oferta_precio_individual');
-        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, 'oferta_precio_bulto');
-        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount, 'alto');
-        $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount, 'ancho');
-        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount, 'profundidad');
-        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount, 'peso');
-        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount, 'imagen');
-        $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount, 'iva');
-        $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount, 'lista_1');
-        $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount, 'lista_2');
-        $objPHPExcel->getActiveSheet()->SetCellValue('V'.$rowCount, 'lista_3');
-        $objPHPExcel->getActiveSheet()->SetCellValue('W'.$rowCount, 'lista_4');
-        $objPHPExcel->getActiveSheet()->SetCellValue('X'.$rowCount, 'lista_5');
+          $sheet->setCellValue('A'.$x, $product->code);
+          $sheet->setCellValue('B'.$x, $product->name);
+          $sheet->setCellValue('C'.$x, $product->description);
+          $sheet->setCellValue('D'.$x, $product->id_category);
+          $sheet->setCellValue('E'.$x, $product->id_subcategory);
+          $sheet->setCellValue('F'.$x, $product->unit_bulto);
+          $sheet->setCellValue('G'.$x, $product->stock);
+          $sheet->setCellValue('H'.$x, $product->price_individual);
+          $sheet->setCellValue('I'.$x, $product->price_package); 
+          $sheet->setCellValue('J'.$x, $product->featured);
+          $sheet->setCellValue('K'.$x, $product->offer);
+          $sheet->setCellValue('L'.$x, $product->offer_price);
+          $sheet->setCellValue('M'.$x, $product->offer_price_bulto);
+          $sheet->setCellValue('N'.$x, $product->height);
+          $sheet->setCellValue('O'.$x, $product->width);
+          $sheet->setCellValue('P'.$x, $product->depth);
+          $sheet->setCellValue('Q'.$x, $product->weight);
+          $sheet->setCellValue('R'.$x, $product->image1);      
+          $sheet->setCellValue('S'.$x, $product->id_iva);
+          $sheet->setCellValue('T'.$x, $product->id_differential_discount);    
+          $sheet->setCellValue('U'.$x, $prices[$key][0]);
+          $sheet->setCellValue('V'.$x, $prices[$key][1]);
+          $sheet->setCellValue('W'.$x, $prices[$key][2]);
+          $sheet->setCellValue('X'.$x, $prices[$key][3]);
+          $sheet->setCellValue('Y'.$x, $prices[$key][4]);
+    
+          $x++;
+      }
 
-        $rowCount++;
-        $products = $this->producto->getExport();
+      $filename = 'productos_'.date('d-m-Y_H:m:s').'.xlsx';
+      $writer = new Xlsx($spreadsheet);
 
-        $related_product = $this->producto->related_products();
+      header('Content-Type: application/vnd.ms-excel');
+      header('Content-Disposition: attachment;filename='.$filename); 
+      header('Cache-Control: max-age=0');
+      
+      $writer->save('php://output'); // download file 
 
-        foreach ($products as $key => $product)
-        {
-            $prices[] = explode(',', $product->prices);
-            
-            $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $product->code);
-            $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $product->name);
-            $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $product->description);
-            $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $product->id_category);
-            $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $product->id_subcategory);
-            $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $product->unit_bulto);
-            $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $product->stock);
-            $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount, $product->price_individual);
-            $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount, $product->price_package);
-            $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount, $product->featured);
-            $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount, $product->offer);
-            $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, $product->offer_price);
-            $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $product->offer_price_bulto);
-            $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount, $product->height);
-            $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount, $product->width);
-            $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount, $product->depth);
-            $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount, $product->weight);
-            $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount, $product->image1);
-            $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount, $product->id_iva);
-            $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount, $prices[$key][0]);
-            $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount, $prices[$key][1]);
-            $objPHPExcel->getActiveSheet()->SetCellValue('V'.$rowCount, $prices[$key][2]);
-            $objPHPExcel->getActiveSheet()->SetCellValue('W'.$rowCount, $prices[$key][3]);
-            $objPHPExcel->getActiveSheet()->SetCellValue('X'.$rowCount, $prices[$key][4]);
 
-            $rowCount++;
 
-        }
-
-        foreach (range('A', 'X') as $columnID)
-        {
-            $objPHPExcel
-                ->getActiveSheet()
-                ->getColumnDimension($columnID)
-                ->setAutoSize(true);
-        }
-
-        $filename = 'productos_';
-
-        $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
-
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="' . $filename . date('d-m-Y_H:m:s') . '.xlsx"');
-        header('Cache-Control: max-age=0');
-        $objWriter->save('php://output');
-
-    }
-
-    public function registroVariantes($productoId)
-    {
-        $talle = $this->input->post('talle');
-        $color = $this->input->post('color');
-        $stock = $this->input->post('stock');
-
-        if ($stock) {
-            foreach ($stock as $index => $value) {
-                $sizeId = $talle[$index];
-                $colorId = $color[$index];
-                $cantidad = $stock[$index];
-
-                $data = array(
-                    'id_product' => $productoId,
-                    'id_size' => $sizeId,
-                    'id_color' => $colorId,
-                    'stock' => $cantidad,
-                );
-
-                $this->variant_products->insert($data);
-            }
-        }
-    }
-
-    public function registroGaleriaColores($productoId)
-    {
-        $coloresGrupos = $this->input->post('color_group');
-
-        if ($coloresGrupos) {
-            foreach ($coloresGrupos as $key => $colorId) {
-                if (!empty($_FILES['color_imagen']['tmp_name'][$colorId])) {
-                    $total = count($_FILES['color_imagen']['name'][$colorId]);
-
-                    for ($i=0; $i < $total; $i++) {
-                        $tmpFilePath = $_FILES['color_imagen']['tmp_name'][$colorId][$i];
-
-                        if (!empty($tmpFilePath)) {
-                            $_FILES['image_producto']['name'] = $_FILES['color_imagen']['name'][$colorId][$i];
-                            $_FILES['image_producto']['type'] = $_FILES['color_imagen']['type'][$colorId][$i];
-                            $_FILES['image_producto']['tmp_name'] = $_FILES['color_imagen']['tmp_name'][$colorId][$i];
-                            $_FILES['image_producto']['error'] = $_FILES['color_imagen']['error'][$colorId][$i];
-                            $_FILES['image_producto']['size'] = $_FILES['color_imagen']['size'][$colorId][$i];
-
-                            $imageTmp = $this->backend_lib->imagen_upload('image_producto', 'img_productos');
-
-                            $dataImageProduct = array(
-                                'id_product' => $productoId,
-                                'id_color' => $colorId,
-                                'image' => $imageTmp,
-                                'active' => ACTIVE,
-                            );
-
-                            $this->producto_imagen->insert($dataImageProduct);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    public function registroImagenesPrecargadas($productoId)
-    {
-        $imagenesAntiguas = $this->input->post('color_group_old');
-        $coloresGrupos = $this->input->post('color_group');
-
-        if ($coloresGrupos) {
-            foreach ($coloresGrupos as $key => $colorId) {
-                if (!empty($imagenesAntiguas[$colorId]) && count(!empty($imagenesAntiguas[$colorId])) > 0) {
-                    foreach ($imagenesAntiguas[$colorId] as $key => $image) {
-                        $dataImageProduct = array(
-                            'id_product' => $productoId,
-                            'id_color' => $colorId,
-                            'image' => $image,
-                            'active' => ACTIVE,
-                        );
-                        $this->producto_imagen->insert($dataImageProduct);
-                    }
-                }
-            }
-        }
     }
 
     function jsonRelatedProducts($id = 0)

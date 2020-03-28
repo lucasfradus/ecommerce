@@ -137,3 +137,4 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array('codegen_model', 'sudaca_md', 'sudaca_backend_md', 'sudaca_frontend_md');
+$autoload['composer_autoload'] = 'vendor/autoload.php';

@@ -91,9 +91,7 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <img class="img-fluid" src="<?php echo(base_url('assets/public/img-bot.jpg'))?>" alt="Atencion al Cliente">
-</div>
+
 
 <section class="footer py-3">
     <div class="container">
